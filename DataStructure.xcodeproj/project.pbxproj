@@ -27,7 +27,6 @@
 		DE00D8D3287EE239002F7CBE /* 10828.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = 10828.cpp; sourceTree = "<group>"; };
 		DE68248F288D5179000A3E02 /* 18258.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = 18258.cpp; sourceTree = "<group>"; };
 		DE682492288D58DE000A3E02 /* 11866.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = 11866.cpp; sourceTree = "<group>"; };
-		DE682493288D58DE000A3E02 /* 11866.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = 11866.hpp; sourceTree = "<group>"; };
 		DEFBF62628802EB100B2924E /* 9012.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = 9012.cpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -65,7 +64,6 @@
 				DEFBF62628802EB100B2924E /* 9012.cpp */,
 				DE68248F288D5179000A3E02 /* 18258.cpp */,
 				DE682492288D58DE000A3E02 /* 11866.cpp */,
-				DE682493288D58DE000A3E02 /* 11866.hpp */,
 			);
 			path = DataStructure;
 			sourceTree = "<group>";
