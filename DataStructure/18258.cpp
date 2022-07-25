@@ -6,66 +6,15 @@
 //
 
 #include <iostream>
-#include <string>
+#include <queue>
 using namespace std;
-
-class Queue {
-private:
-    int arr[100];
-    int i = 0; //다음에 들어갈 곳
-    int j = 0; //시작
-    int size = 0;
-    
-public:
-    void push(int n) {
-        size++;
-        arr[i++] = n;
-    }
-    
-    void pop() {
-        if (size == 0)
-            cout << "-1" << endl;
-        else {
-            cout << arr[j] << endl;
-            arr[j++] = 0;
-            size--;
-        }
-    }
-    
-    void sizeF() {
-        cout << size << endl;
-    }
-    
-    void empty() {
-        if (size == 0)
-            cout << "1" << endl;
-        else
-            cout << "0" << endl;
-    }
-    
-    void front() {
-        if (size == 0)
-            cout << -1 << endl;
-        else {
-            cout << arr[j] << endl;
-        }
-    }
-    
-    void back() {
-        if (size == 0)
-            cout << -1 << endl;
-        else {
-            cout << arr[i-1] << endl;
-        }
-    }
-};
 
 int main() {
     
+    queue<int> q;
+    
     int N;
     cin >> N;
-    
-    Queue q;
     
     string s;
     for(int i = 0; i < N; i++) {
@@ -77,23 +26,27 @@ int main() {
         }
         
         else if(s == "pop") {
+            if(q.empty()) cout << "-1" << endl;
+            else cout << q.front() << endl;
             q.pop();
         }
         
         else if(s == "size") {
-            q.sizeF();
+            cout << q.size() << endl;
         }
         
         else if(s == "empty") {
-            q.empty();
+            cout << q.empty() << endl;
         }
         
         else if(s == "front") {
-            q.front();
+            if(q.empty()) cout << "-1" << endl;
+            else cout << q.front() << endl;
         }
         
         else if(s == "back") {
-            q.back();
+            if(q.empty()) cout << "-1" << endl;
+            else cout << q.back() << endl;
         }
     }
 }
