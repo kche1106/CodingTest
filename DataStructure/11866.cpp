@@ -22,7 +22,7 @@ int main() {
     }
     
     cout << "<";
-    while(n > 0) {
+    while(!q.empty()) {
         
         for(int i = 1; i <= k - 1; i++) {
             q.push(q.front());
@@ -32,10 +32,9 @@ int main() {
         cout << q.front();
         q.pop();
         
-        if(!(q.empty())) {
+        if(q.size() != 0) {
             cout << ",";
         }
-        n--;
     }
     cout << ">";
 }
