@@ -33,7 +33,7 @@ int main() {
             int ry = j + dy[dir];
             
             if(rx < 0 || rx >= n || ry < 0 || ry >= n || arr[rx][ry] > 0) {
-                dir += 1;
+                dir++;
                 if(dir == 4) dir = 0;
                 continue;
             }
