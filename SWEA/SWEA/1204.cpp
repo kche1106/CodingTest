@@ -22,9 +22,7 @@ int main() {
             cin >> score;
             scores[score]++;
         }
-        
-        cout << "입력 완료" << endl;
-        
+                
         int max = 0, idx = 0;
         
         for(int k = 0; k < 100; k++) {
