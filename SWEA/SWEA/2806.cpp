@@ -8,21 +8,24 @@
 #include <iostream>
 using namespace std;
 
-int col[10];
+int visited[10];  //visited[i] = j
 int n, res = 0;
 
-bool check(int t) {
-    for(int i = 0; i < n; i++) {
-        if(col[i] )
+bool check(int cnt) {
+    for(int i = 0; i < cnt; i++) {
+        if(visited[cnt] == visited[i]) return 0;  //열이 같음
+        if(cnt - i == abs(visited[cnt] - visited[i])) return 0;  //대각선이 같음
     }
+    
+    return 1;
 }
 
-void nqueen(int x) {
-    if(x == n) res++;
+void nqueen(int cnt) {
+    if(cnt == n) res++;
     else {
         for(int i = 0; i < n; i++) {
-            col[x] = i;
-            if(check(x)) nqueen(x+1);
+            visited[cnt] = i;
+            if(check(cnt)) nqueen(cnt+1);
         }
     }
 }
@@ -37,5 +40,6 @@ int main() {
         nqueen(0);
         
         cout << "#" << i+1 << " " << res << endl;
+        res = 0;
     }
 }
