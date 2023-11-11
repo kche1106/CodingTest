@@ -33,7 +33,6 @@ int main() {
             }
             
             h[maxi]--; h[mini]++;
-            
             dump--;
         }
         
