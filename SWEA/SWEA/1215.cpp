@@ -19,11 +19,6 @@ void wid(int x, int y) {
         v.push_back(map[x][y+i]);
     }
     
-    cout << "wid ";
-    for(int i = 0; i < n; i++) {
-        cout << v[i] << " ";
-    }
-    cout << endl;
     
     for(int i = 0, j = n-1; i < n/2; i++, j--) {
         if(v[i] != v[j]) flag = false;
@@ -31,7 +26,6 @@ void wid(int x, int y) {
     
     if(flag) {
         res++;
-        cout << "res = " << res << endl;
     }
 }
 
@@ -43,19 +37,12 @@ void hei(int x, int y) {
         v.push_back(map[x+i][y]);
     }
     
-    cout << "hei ";
-    for(int i = 0; i < n; i++) {
-        cout << v[i] << " ";
-    }
-    cout << endl;
-    
     for(int i = 0, j = n-1; i < n/2; i++, j--) {
         if(v[i] != v[j]) flag = false;
     }
     
     if(flag) {
         res++;
-        cout << "res = " << res << endl;
     }
 }
 
@@ -74,8 +61,13 @@ int main() {
         }
         
         for(int j = 0; j < 8; j++) {
-            for(int k = 0; k < 8; k++) {
+            for(int k = 0; k <= 8 - n; k++) {
                 wid(j, k);
+            }
+        }
+        
+        for(int j = 0; j <= 8 - n; j++) {
+            for(int k = 0; k < 8; k++) {
                 hei(j, k);
             }
         }
