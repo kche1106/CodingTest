@@ -36,13 +36,13 @@ int main() {
                 break;
             }
             
-            if(s[i-1] == '(') {
+            if(s[i-1] == '(') {  //()짝이 바로 찾아졌을 때
                 st.pop();
                 res += tmp;
                 tmp /= 2;
             }
             
-            else {  //st.top()이 '('인 경우
+            else {  //()짝 안에 여러 식이 있었을 때
                 tmp /= 2;
                 st.pop();
             }
@@ -54,13 +54,13 @@ int main() {
                 break;
             }
             
-            if(s[i-1] == '[') {
+            if(s[i-1] == '[') {  //[]짝이 바로 찾아졌을 때
                 st.pop();
                 res += tmp;
                 tmp /= 3;
             }
             
-            else {  //st.top()이 '['인 경우
+            else {  //[]짝 안에 여러 식이 있었을 때
                 tmp /= 3;
                 st.pop();
             }
