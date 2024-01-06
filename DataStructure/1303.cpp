@@ -20,6 +20,8 @@ void DFS(int x, int y) {
     if(x < 0 || y < 0 || x >= m || y >= n) return;
     if(visited[x][y] == 1) return;
     
+    visited[x][y] = 1;
+    
     if(map[x][y] == 'W') w++;
     else if(map[x][y] == 'B') b++;
     
@@ -28,7 +30,6 @@ void DFS(int x, int y) {
         int ny = y + dy[i];
         
         if(map[x][y] == map[nx][ny]) {
-            visited[x][y] = 1;
             DFS(nx, ny);
         }
     }
