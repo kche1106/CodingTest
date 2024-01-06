@@ -6,38 +6,57 @@
 //
 
 #include <iostream>
+#include <queue>
 using namespace std;
 
-int arr[101][101], visited[101][101];
+int arr[101][101], dist[101][101];
+queue<pair<int, int>> q;
 int n, m;
-int res = 987654321;
+//int res = 10001;
 int dx[] = {-1, 1, 0, 0};
 int dy[] = {0, 0, -1, 1};
 
-void DFS(int x, int y, int cnt) {
+//void DFS(int x, int y, int cnt) {
+//        
+//    if(x == n && y == m) {
+//        if(res > cnt) res = cnt;
+//        return;
+//    }
+//    
+//    if(x <= 0 || y <= 0 || x > n || y > m) return;
+//        
+//    for(int i = 0; i < 4; i++) {
+//        int nx = x + dx[i];
+//        int ny = y + dy[i];
+//        
+//        if(arr[nx][ny] == 1 && visited[nx][ny] != 1) {
+//            visited[nx][ny] = 1;
+//            DFS(nx, ny, cnt+1);
+//            visited[nx][ny] = 0;
+//        }
+//    }
+//    
+//}
+
+void BFS() {
     
-    cout << "x = " << x << " y = " << y << " cnt = " << cnt << endl;
-    
-    if(x == n && y == m) {
-        cout << "end\n";
-        if(res > cnt) res = cnt;
-        visited[x][y] = 0;
-        return;
-    }
-    
-    if(x <= 0 || y <= 0 || x > n || y > m) return;
-    
-    cnt++;
-    
-    for(int i = 0; i < 4; i++) {
-        int nx = x + dx[i];
-        int ny = y + dy[i];
+    while(!q.empty()) {
         
-        if(arr[nx][ny] != 0 && visited[nx][ny] != 1) {
-//            cout << "-- nx = " << nx << " ny = " << ny << endl;
-            visited[nx][ny] = 1;
-            DFS(nx, ny, cnt);
-            visited[nx][ny] = 0;
+        int qx = q.front().first;
+        int qy = q.front().second;
+        
+        q.pop();
+        
+        for(int i = 0; i < 4; i++) {
+            int nx = qx + dx[i];
+            int ny = qy + dy[i];
+            
+            if(nx >= 0 && nx < n && ny >= 0 && ny < m) {
+                if(arr[nx][ny] == 1 && dist[nx][ny] == 0) {
+                    q.push(make_pair(nx, ny));
+                    dist[nx][ny] = dist[qx][qy] + 1;
+                }
+            }
         }
     }
     
@@ -46,17 +65,28 @@ void DFS(int x, int y, int cnt) {
 int main() {
     cin >> n >> m;
     
-    for(int i = 1; i <= n; i++) {
-        int num;
-        cin >> num;
-        for(int j = m; j >= 1; j--) {
-            arr[i][j] = num % 10;
-            num /= 10;
+//    for(int i = 0; i < n; i++) {
+//        int num;
+//        cin >> num;
+//        for(int j = m-1; j >= 0; j--) {
+//            arr[i][j] = num % 10;
+//            num /= 10;
+//        }
+//    }
+    
+    for (int i = 0; i < n; i++) {
+        string temp;
+        cin >> temp;
+        for (int j = 0; j < m; j++) {
+            arr[i][j] = temp[j] - '0';
         }
     }
     
-    visited[1][1] = 1;
-    DFS(1, 1, 1);
+//    DFS(1, 1, 1);
     
-    cout << res << endl;
+    q.push(make_pair(0,0));
+    dist[0][0] = 1;
+    BFS();
+    
+    cout << dist[n-1][m-1] << endl;
 }
