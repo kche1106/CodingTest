@@ -1,5 +1,6 @@
 package b1157;
 
+import java.util.Arrays;
 import java.util.Scanner;
 
 public class Main {
@@ -7,6 +8,8 @@ public class Main {
         Scanner sc = new Scanner(System.in);
         String str = sc.next();
         int arr[] = new int[26];
+
+        Arrays.sort(arr);
 
         for(int i = 0; i < str.length(); i++) {
             if((str.charAt(i)) >= 'A' && str.charAt(i) <= 'Z') arr[str.charAt(i) - 'A']++;
