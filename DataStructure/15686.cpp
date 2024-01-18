@@ -6,30 +6,27 @@
 //
 
 #include <iostream>
-#include <cstdlib>
 #include <algorithm>
+#include <vector>
 using namespace std;
 
 int n, m;
 int map[51][51];
-int dis[51][51];
 vector<pair<int, int>> chicken;
-vector<pair<int, int>> live;
-int ch[51];
-int answer = 100000000;
+vector<pair<int, int>> chic_select;
+int ch[13];
+int ans = 10000;
 
-int calculate() {
-    int sum = 0;  //도시의 치킨거리
+int distance() {
+    int sum = 0;
     for(int i = 1; i <= n; i++) {
         for(int j = 1; j <= n; j++) {
-        
-            int d = 100000;
-            if(map[i][j] == 1) {  //집
-                for(int k = 0; k < live.size(); k++) {
-                    int distance = abs(i - live[k].first) + abs(j - live[k].second);
-                    d = min(d, distance);
+            if(map[i][j] == 1) {
+                int dist = 10000;
+                for(int k = 0; k < chic_select.size(); k++) {
+                    dist = min(dist, abs(i - chic_select[k].first) + abs(j - chic_select[k].second));
                 }
-                sum += d;
+                sum += dist;
             }
         }
     }
@@ -38,17 +35,16 @@ int calculate() {
 
 void select(int idx, int cnt) {
     if(cnt == m) {
-        answer = min(answer, calculate());
+        if(ans > distance()) ans = distance();
     }
-    
     else {
         for(int i = idx; i < chicken.size(); i++) {
             if(ch[i] != 1) {
                 ch[i] = 1;
-                live.push_back(chicken[i]);
-                select(i, cnt+1);
+                chic_select.push_back(chicken[i]);
+                select(i+1, cnt+1);
                 ch[i] = 0;
-                live.pop_back();
+                chic_select.pop_back();
             }
         }
     }
@@ -60,11 +56,13 @@ int main() {
     for(int i = 1; i <= n; i++) {
         for(int j = 1; j <= n; j++) {
             cin >> map[i][j];
-            if(map[i][j] == 2) chicken.push_back(make_pair(i, j));
+            if(map[i][j] == 2) {
+                chicken.push_back(make_pair(i, j));
+            }
         }
     }
     
     select(0, 0);
     
-    cout << answer << endl;
-}
+    cout << ans << endl;
+ }
