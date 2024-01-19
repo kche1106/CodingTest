@@ -5,80 +5,70 @@
 //  Created by 김채은 on 2024/01/18.
 //
 
-#include <deque>
 #include <iostream>
-#include <vector>
-
+#include <deque>
 using namespace std;
 
+int n, k;
 deque<int> a;
 deque<int> robot;
 
-int N, K, step;
-
-void rotate(){
+void rotate() {
     a.push_front(a.back());
     a.pop_back();
     
     robot.push_front(robot.back());
     robot.pop_back();
-    robot[N - 1] = 0;
+    robot[n-1] = 0;  //벨트가 회전한 후 n번 칸에 있는 로봇 내리기
 }
 
-void move()
-{
-    for (int i = N - 2; i >= 0; i--) {
-        if (robot[i + 1] == 0 && a[i + 1] > 0 && robot[i] == 1) {
+void move() {
+    for(int i = n-2; i >= 0; i--) {
+        if(robot[i] == 1 && robot[i+1] == 0 && a[i+1] > 0) {
             robot[i] = 0;
-            robot[i + 1] = 1;
-            a[i + 1]--;
+            robot[i+1] = 1;
+            a[i+1]--;
         }
     }
-    robot[N - 1] = 0;
+    
+    robot[n-1] = 0;
 }
 
-void put_robot()
-{
-    if (!robot[0] && a[0] > 0) {
+void put() {
+    if(robot[0] == 0 && a[0] > 0) {
         robot[0] = 1;
         a[0]--;
     }
 }
 
-int check()
-{
-    int count_ = 0;
-    for (int i = 0; i < 2 * N; i++) {
-        if (a[i] == 0)
-            count_++;
+int check() {
+    int cnt = 0;
+    for(int i = 0; i < a.size(); i++) {
+        if(a[i] == 0) cnt++;
     }
-    return count_;
+    return cnt;
 }
 
-int main()
-{
-    step = 1;
-
-    cin >> N >> K;
-    for (int i = 0; i < 2 * N; i++) {
-        int in;
-        cin >> in;
-        a.push_back(in);
+int main() {
+    cin >> n >> k;
+    
+    for(int i = 0; i < 2*n; i++) {
+        int num;
+        cin >> num;
+        a.push_back(num);
         robot.push_back(0);
     }
-
+    
+    int sum = 0;
     while (true) {
+        sum++;
         rotate();
         move();
-        put_robot();
-
+        put();
+        
         int c = check();
-        if (c >= K) {
-            cout << step << "\n";
-            return 0;
-        }
-        step++;
+        if(c >= k) break;
     }
-
-    return 0;
+    
+    cout << sum << endl;
 }
