@@ -9,7 +9,7 @@
 using namespace std;
 
 int memory[10];
-int answer[10];
+int ans[10];
 
 int main() {
     int n;
@@ -19,26 +19,24 @@ int main() {
         cin >> memory[i];
     }
     
+    ans[memory[0]] = 1;  //키가 1인 사람
     
-    for(int i = 0; i < n; i++) {  //memory
+    for(int i = 1; i < n; i++) {  //memory
         int cnt = 0;
         for(int j = 0; j < n; j++) {  //answer
             if(cnt == memory[i]) {
-                if(answer[j] == 0) {
-                    answer[j] = i + 1;
+                if(ans[j] == 0) {
+                    ans[j] = i+1;
                     break;
                 }
             }
             else {
-                if(answer[j] == 0) {
-                    cnt++;
-                }
+                if(ans[j] == 0) cnt++;
             }
         }
     }
     
     for(int i = 0; i < n; i++) {
-        cout << answer[i] << " ";
+        cout << ans[i] << " ";
     }
-    
 }
