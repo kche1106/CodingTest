@@ -8,9 +8,9 @@
 #include <iostream>
 using namespace std;
 
-int n;
 int s[8];  //내구도
-int w[8];  //무게
+int w[8];
+int n;
 int res;
 
 void DFS(int idx) {
@@ -19,31 +19,31 @@ void DFS(int idx) {
         for(int i = 0; i < n; i++) {
             if(s[i] <= 0) sum++;
         }
-        if(res < sum) res = sum;
+        if(sum > res) res = sum;
         return;
     }
     
     if(s[idx] <= 0) DFS(idx + 1);
     
     else {
-        bool check = false;  //남은 계란 X
+        bool check = false;
         for(int i = 0; i < n; i++) {
             if(i == idx || s[i] <= 0) continue;
             
+            check = true;  //깰 계란이 있음
             s[idx] -= w[i];
             s[i] -= w[idx];
-            check = true;
-            DFS(idx+1);
+            DFS(idx + 1);
             s[idx] += w[i];
             s[i] += w[idx];
         }
-        
-        if(check == false) DFS(idx + 1);  //깨트릴 계란 없으면 다음 계란으로
+        if(check == false) DFS(idx + 1);  //깰 계란이 없을 경우 다음 계란으로 넘어감
     }
 }
 
 int main() {
     cin >> n;
+    
     for(int i = 0; i < n; i++) {
         cin >> s[i] >> w[i];
     }
