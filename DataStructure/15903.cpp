@@ -6,37 +6,37 @@
 //
 
 #include <iostream>
-#include <algorithm>
 #include <queue>
 using namespace std;
 
 int main() {
     int n, m;
     cin >> n >> m;
-    
+
     priority_queue<long long> pq;
-    for(int i = 0; i < n; i++) {
-        long long num;
+    for(int i = 0; i < n; i++){
+        int num;
         cin >> num;
         pq.push(-num);
     }
     
-    for(int i = 0; i < m; i++) {
-        long long first = -pq.top();
+    while(m--) {
+        long long n1 = -pq.top();
         pq.pop();
-        long long second = -pq.top();
+        long long n2 = -pq.top();
         pq.pop();
-        long long sum = first + second;
         
+        long long sum = n1 + n2;
         pq.push(-sum);
         pq.push(-sum);
     }
     
     long long res = 0;
     for(int i = 0; i < n; i++) {
-        res += (-pq.top());
+        res += -(pq.top());
         pq.pop();
     }
     
     cout << res << endl;
+    
 }
