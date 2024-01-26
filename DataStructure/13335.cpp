@@ -7,7 +7,6 @@
 
 #include <iostream>
 #include <queue>
-#include <numeric>
 using namespace std;
 
 int main() {
@@ -19,30 +18,27 @@ int main() {
         cin >> truck[i];
     }
     
-    int cnt = 1;
     queue<int> q;
-    q.push(truck[0]);
-    int weigth = truck[0];
-    
-    for(int i = 1; i < n; i++) {
+    int weight = 0;
+    int cnt = 0;
+    for(int i = 0; i < n; i++) {
         while (true) {
-            if(q.size() == w) {
-                weigth -= q.front();
+            if(q.size() >= w) {
+                weight -= q.front();
                 q.pop();
             }
             
-            if(weigth + truck[i] <= l) break;
-            
-            else {
-                cnt++;
+            if(weight + truck[i] > l) {
                 q.push(0);
+                cnt++;
             }
+            else if(weight + truck[i] <= l) break;
         }
         q.push(truck[i]);
-        weigth += truck[i];
+        weight += truck[i];
         cnt++;
-        
     }
     
     cout << cnt + w << endl;
 }
+
