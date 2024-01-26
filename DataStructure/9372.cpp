@@ -6,23 +6,20 @@
 //
 
 #include <iostream>
-#include <queue>
-#include <vector>
 using namespace std;
 
 int main() {
-    int t;
-    cin >> t;
-    
-    for(int i = 0; i < t; i++) {
-        int n, m;
-        cin >> n >> m;  //국가 수, 비행기 종류
+    int tc;
+    cin >> tc;
+    for(int t = 0; t < tc; t++) {
+        int n, m;  //국가의 수, 비행기 종류
+        cin >> n >> m;
         
-        for(int j = 0; j < m; j++) {
+        for(int i = 0; i < m; i++) {
             int a, b;
             cin >> a >> b;
         }
         
-        cout << n - 1 << endl;
+        cout << n-1 << endl;
     }
 }
