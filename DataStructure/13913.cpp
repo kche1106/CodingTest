@@ -7,41 +7,40 @@
 
 #include <iostream>
 #include <queue>
-#include <algorithm>
 using namespace std;
 
 int n, k;
-int t, res;
-int visited[1000000];
+int ch[1000000];
 int dist[1000000];
+int path[1000000];
 queue<int> q;
-int p[1000000];
-vector<int> path;
+int res;
+int cnt;
 
 void BFS() {
-    while (!q.empty()) {
-        int x = q.front();
+    while(!q.empty()) {
+        int pos = q.front();
         q.pop();
         
-        if(x == k) {
-            res = dist[x];
-            return;
+        if(pos == k) {
+            res = dist[pos];
+            break;
         }
         
+        int npos = 0;
         for(int i = 0; i < 3; i++) {
-            int nx = 0;
-            if(i == 0) nx = x + 1;
-            else if(i == 1) nx = x - 1;
-            else if(i == 2) nx = 2 * x;
+            if(i == 0) npos = pos - 1;
+            else if(i == 1) npos = pos + 1;
+            else if(i == 2) npos = pos * 2;
             
-            if(nx >= 0 && nx <= 100000 && visited[nx] != 1) {
-                dist[nx] = dist[x] + 1;
-                visited[nx] = 1;
-                p[nx] = x;
-                q.push(nx);
+            if(npos < 0 || npos > 100000) continue;
+            if(ch[npos] == 0) {
+                ch[npos] = 1;
+                dist[npos] = dist[pos] + 1;
+                q.push(npos);
+                path[npos] = pos;
             }
         }
-        
     }
 }
 
@@ -49,18 +48,21 @@ int main() {
     cin >> n >> k;
     
     q.push(n);
-    visited[n] = 1;
-    BFS();
+    ch[n] = 1;
     
+    BFS();
     cout << res << endl;
     
-    path.push_back(k);
+    vector<int> ans;
+    ans.push_back(k);
+    
     for(int i = 0; i < res; i++) {
-        path.push_back(p[k]);
-        k = p[k];
+        ans.push_back(path[k]);
+        k = path[k];
     }
     
-    for(int i = path.size() - 1; i >= 0; i--) {
-        cout << path[i] << " ";
+    for(int i = ans.size() - 1; i >= 0; i--) {
+        cout << ans[i] << " ";
     }
+    
 }
