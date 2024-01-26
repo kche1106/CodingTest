@@ -6,37 +6,30 @@
 //
 
 #include <iostream>
-#include <vector>
+#include <iostream>
 using namespace std;
 
-vector<int> v[26];
-int check[26];
+int arr[26][26];
 
-void preorder(int x) {
-    
-    if(x == -1) return;
-    
-    cout << (char) (x + 'A');
-    preorder(v[x][0]);
-    preorder(v[x][1]);
+void preorder(int i) {
+    if(i + 'A' == '.') return;
+    cout << char(i + 'A');
+    preorder(arr[i][0]);
+    preorder(arr[i][1]);
 }
 
-void inorder(int x) {
-    
-    if(x == -1) return;
-
-    inorder(v[x][0]);
-    cout << (char) (x + 'A');
-    inorder(v[x][1]);
+void inorder(int i) {
+    if(i + 'A' == '.') return;
+    inorder(arr[i][0]);
+    cout << char(i + 'A');
+    inorder(arr[i][1]);
 }
 
-void postorder(int x) {
-    
-    if(x == -1) return;
-    
-    postorder(v[x][0]);
-    postorder(v[x][1]);
-    cout << (char) (x + 'A');
+void postorder(int i) {
+    if(i + 'A' == '.') return;
+    postorder(arr[i][0]);
+    postorder(arr[i][1]);
+    cout << char(i + 'A');
 }
 
 int main() {
@@ -47,20 +40,13 @@ int main() {
         char a, b, c;
         cin >> a >> b >> c;
         
-        int idx = (int) a - 65;
-        
-        if(b == '.') v[idx].push_back(-1);
-        else v[idx].push_back((int)b - 65);
-        
-        if(c == '.') v[idx].push_back(-1);
-        else v[idx].push_back((int)c - 65);
+        arr[(int) a - 65][0] = (int) b - 65;
+        arr[(int) a - 65][1] = (int) c - 65;
     }
     
-    
     preorder(0);
-    cout << '\n';
+    cout << endl;
     inorder(0);
-    cout << '\n';
+    cout << endl;
     postorder(0);
-    cout << '\n';
 }
