@@ -6,22 +6,21 @@
 //
 
 #include <iostream>
-#include <vector>
 #include <cmath>
+#include <vector>
 using namespace std;
 
 int k;
-int arr[10024];
-vector<int> res[10];
+vector<int> v[10];
+int arr[1024];
 
-void DFS(int depth, int x, int y) {
-    if(x >= y) return;
+void preorder(int start, int end, int cnt) {
+    if(cnt == k) return;
     
-    int mid = (x + y) / 2;
-    res[depth].push_back(arr[mid]);
-    DFS(depth+1, x, mid);
-    DFS(depth+1, mid+1, y);
-    
+    int mid = (start + end) / 2;
+    v[cnt].push_back(arr[mid]);
+    preorder(start, mid-1, cnt+1);
+    preorder(mid+1, end, cnt+1);
 }
 
 int main() {
@@ -33,11 +32,11 @@ int main() {
         cin >> arr[i];
     }
     
-    DFS(0, 0, n);
+    preorder(0, n, 0);
     
     for(int i = 0; i < k; i++) {
-        for(int j = 0; j < res[i].size(); j++) {
-            cout << res[i][j] << " ";
+        for(int j = 0; j < v[i].size(); j++) {
+            cout << v[i][j] << " ";
         }
         cout << endl;
     }
