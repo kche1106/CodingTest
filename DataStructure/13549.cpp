@@ -15,7 +15,7 @@ int main() {
     
     int visited[100001] = {0, };
     int dist[100001] = {0, };
-    deque<int> q;
+    deque<int> q;  //priority_queue 이용하는 방식도 풀어복
     q.push_back(n);
     visited[n] = 1;
     
