@@ -23,7 +23,7 @@ int main() {
         p.push_back(b);
     }
     
-    vector<int> dp;
+    vector<int> dp; //전역변수로 쓰면 에러남
     for(int i = 0; i <= n; i++) {
         dp.push_back(0);
     }
