@@ -9,12 +9,14 @@
 #include <cstring>
 using namespace std;
 
+//bfs로 풀어보기
+
 int n, m;
 int map[1001][1001];
 int visited[1001];
 int cost = 1000000000;
 
-void DFS(int x, int y, int res) {    
+void DFS(int x, int y, int res) {
     if(x == y) {
         if(cost > res) cost = res;
         return;
