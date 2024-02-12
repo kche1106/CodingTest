@@ -11,6 +11,8 @@
 #include <algorithm>
 using namespace std;
 
+//union & find로 풀어보기
+
 int visited[51];
 
 int main() {
