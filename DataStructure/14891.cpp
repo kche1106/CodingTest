@@ -10,67 +10,72 @@
 #include <cstring>
 using namespace std;
 
-int rot[5];
+deque<int> tob[5];
+int dir[5];
 int check[5];
-deque<int> d[5];
 
-void setdir(int num, int dir) {
-    rot[num] = dir;
-    check[num] = 1;
-    
-    if(num - 1 > 0 && check[num-1] == 0) {
-        if(dir == 0) setdir(num-1, 0);
-        else if(d[num][6] != d[num-1][2]) setdir(num-1, -dir);
-        else setdir(num-1, 0);
-    }
-    if(num + 1  <= 4 && check[num+1] == 0) {
-        if(dir == 0) setdir(num+1, 0);
-        else if(d[num][2] != d[num+1][6]) setdir(num+1, -dir);
-        else setdir(num+1, 0);
+void rotation() {
+    for(int i = 1; i <= 4; i++) {
+        if(dir[i] == 0) continue;
+        else if(dir[i] == 1) {  //시계방향
+            tob[i].push_front(tob[i].back());
+            tob[i].pop_back();
+        }
+        else if(dir[i] == -1) {  //반시계방향
+            tob[i].push_back(tob[i].front());
+            tob[i].pop_front();
+        }
     }
 }
 
-void rotate() {
+void direction(int n, int d) {
+    dir[n] = d;
+    check[n] = 1;
     
-    for(int i = 1; i <= 4; i++) {
-        if(rot[i] == 0) continue;
-        else if(rot[i] == 1) {
-            d[i].push_front(d[i].back());
-            d[i].pop_back();
+    if(n-1 > 0 && check[n-1] == 0) {
+        if(d == 0) direction(n-1, 0);
+        else if(tob[n-1][2] != tob[n][6]) {
+            direction(n-1, -d);
         }
-        else if(rot[i] == -1) {
-            d[i].push_back(d[i].front());
-            d[i].pop_front();
-        }
+        else direction(n-1, 0);
     }
+    
+    if(n+1 <= 4 && check[n+1] == 0) {
+        if(d == 0) direction(n+1, 0);
+        else if(tob[n+1][6] != tob[n][2]) {
+            direction(n+1, -d);
+        }
+        else direction(n+1, 0);
+    }
+    
 }
 
 int main() {
-    for(int i = 1; i <= 4; i++) {
-        string s;
-        cin >> s;
-        
-        for(int j = 0; j < s.length(); j++)
-            d[i].push_back(s[j] - '0');
+    for(int i = 0; i < 4; i++) {
+        for(int j = 0; j < 8; j++) {
+            char c;
+            cin >> c;
+            tob[i+1].push_back(c - '0');
+        }
     }
     
     int k;
     cin >> k;
-    for(int i = 0; i < k; i++) {
-        int num, dir;
-        cin >> num >> dir;
+    
+    while(k--) {
+        int n, dir;
+        cin >> n >> dir;
         
+        direction(n, dir);
+        rotation();
         memset(check, 0, sizeof(check));
-        
-        setdir(num, dir);
-        rotate();
     }
     
-    int score = 0;
-    if(d[1][0] == 1) score += 1;
-    if(d[2][0] == 1) score += 2;
-    if(d[3][0] == 1) score += 4;
-    if(d[4][0] == 1) score += 8;
+    int res = 0;
+    if(tob[1][0] == 1) res += 1;
+    if(tob[2][0] == 1) res += 2;
+    if(tob[3][0] == 1) res += 4;
+    if(tob[4][0] == 1) res += 8;
     
-    cout << score << endl;
+    cout << res;
 }
