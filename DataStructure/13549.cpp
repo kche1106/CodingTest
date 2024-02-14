@@ -6,45 +6,43 @@
 //
 
 #include <iostream>
-#include <deque>
+#include <queue>
 using namespace std;
+
+int visited[100001];
+int dist[100001];
 
 int main() {
     int n, k;
     cin >> n >> k;
     
-    int visited[100001] = {0, };
-    int dist[100001] = {0, };
-    deque<int> q;  //priority_queue 이용하는 방식도 풀어복
-    q.push_back(n);
+    priority_queue<pair<int, int>, vector<pair<int, int>>, greater<pair<int, int>>> q;
+
+    q.push({0, n});
     visited[n] = 1;
     
-    while(!q.empty()) {
-        int x = q.front();
-        q.pop_front();
+    while (!q.empty()) {
+        int x = q.top().second;
+        q.pop();
         
         if(x == k) {
-            cout << dist[x] << endl;
+            cout << dist[x];
             break;
         }
         
         int nx = 0;
         for(int i = 0; i < 3; i++) {
             if(i == 0) nx = x * 2;
-            else if(i == 1) nx = x - 1;
-            else if(i == 2) nx = x + 1;
+            else if(i == 1) nx = x + 1;
+            else nx = x - 1;
             
             if(nx < 0 || nx > 100000) continue;
+            
             if(visited[nx] == 0) {
                 visited[nx] = 1;
-                if(i == 0) {
-                    q.push_front(nx);
-                    dist[nx] = dist[x];
-                }
-                else {
-                    q.push_back(nx);
-                    dist[nx] = dist[x] + 1;
-                }
+                if(i == 0) dist[nx] = dist[x];
+                else dist[nx] = dist[x] + 1;
+                q.push({dist[nx], nx});
             }
         }
     }
