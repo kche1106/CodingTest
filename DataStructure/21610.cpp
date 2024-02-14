@@ -11,111 +11,105 @@
 using namespace std;
 
 int n, m;
-int cloud[51][51];
-vector<pair<int, int>> cloudv;
+int cloud_map[51][51];
+vector<pair<int, int>> cloud;
 int a[51][51];
 int dx[] = {0, -1, -1, -1, 0, 1, 1, 1};
 int dy[] = {-1, -1, 0, 1, 1, 1, 0, -1};
 
 void move(int d, int s) {
-    
-    memset(cloud, 0, sizeof(cloud));
-    for(int i = 0; i < cloudv.size(); i++) {
-        int x = cloudv[i].first;
-        int y = cloudv[i].second;
+    memset(cloud_map, 0, sizeof(cloud_map));
+    for(int i = 0; i < cloud.size(); i++) {
+        int x = cloud[i].first;
+        int y = cloud[i].second;
         
         int nx = x;
         int ny = y;
         for(int j = 0; j < s; j++) {
             nx += dx[d];
             ny += dy[d];
-            
             if(nx > n) nx = 1;
-            if(nx < 1) nx = n;
             if(ny > n) ny = 1;
+            if(nx < 1) nx = n;
             if(ny < 1) ny = n;
         }
-        cloudv[i].first = nx;
-        cloudv[i].second = ny;
-        cloud[nx][ny] = 1;
+        cloud_map[nx][ny] = 1;
+        cloud[i].first = nx;
+        cloud[i].second = ny;
     }
 }
 
 void rain() {
-    for(int i = 0; i < cloudv.size(); i++) {
-        int x = cloudv[i].first;
-        int y = cloudv[i].second;
-        a[x][y] ++;
+    for(int i = 0; i < cloud.size(); i++) {
+        int x = cloud[i].first;
+        int y = cloud[i].second;
+        a[x][y] += 1;
     }
 }
 
-void copy() {
-    for(int i = 0; i < cloudv.size(); i++) {
-        int x = cloudv[i].first;
-        int y = cloudv[i].second;
+void add() {
+    for(int i = 0; i < cloud.size(); i++) {
+        int x = cloud[i].first;
+        int y = cloud[i].second;
         
         int cnt = 0;
-        for(int j = 1; j < 8; j+=2) {
-            int nx = x + dx[j];
-            int ny = y + dy[j];
+        for(int d = 1; d < 8; d+=2) {
+            int nx = x + dx[d];
+            int ny = y + dy[d];
             if(nx < 1 || nx > n || ny < 1 || ny > n) continue;
-            if(a[nx][ny] >= 1) cnt++;
+            if(a[nx][ny] > 0) cnt++;
         }
-        
         a[x][y] += cnt;
     }
 }
 
-void newcloud() {
+void makecloud() {
     
-    cloudv.clear();
+    cloud.clear();
     for(int i = 1; i <= n; i++) {
         for(int j = 1; j <= n; j++) {
-            if(cloud[i][j] == 0 && a[i][j] >= 2) {
+            if(cloud_map[i][j] == 1) continue;
+            
+            if(a[i][j] >= 2) {
+                cloud.push_back({i, j}) ;
                 a[i][j] -= 2;
-                cloudv.push_back({i, j});
             }
         }
     }
     
-    memset(cloud, 0, sizeof(cloud));
-    for(int i = 0; i < cloudv.size(); i++) {
-        int x = cloudv[i].first;
-        int y = cloudv[i].second;
-        
-        cloud[x][y] = 1;
+    memset(cloud_map, 0, sizeof(cloud_map));
+    for(int i = 0; i <= cloud.size(); i++) {
+        cloud_map[cloud[i].first][cloud[i].second] = 1;
     }
 }
 
 int main() {
     cin >> n >> m;
-
+    
     for(int i = 1; i <= n; i++) {
         for(int j = 1; j <= n; j++) {
             cin >> a[i][j];
         }
     }
     
-    int d[101], s[101];
-    for(int i = 0; i < m; i++) {
-        cin >> d[i] >> s[i];
-    }
+    cloud_map[n][1] = 1;
+    cloud_map[n][2] = 1;
+    cloud_map[n-1][1] = 1;
+    cloud_map[n-1][2] = 1;
+    cloud.push_back({n, 1});
+    cloud.push_back({n, 2});
+    cloud.push_back({n-1, 1});
+    cloud.push_back({n-1, 2});
     
-    //초기 구름
-    cloud[n][1] = 1;
-    cloud[n][2] = 1;
-    cloud[n-1][1] = 1;
-    cloud[n-1][2] = 1;
-    cloudv.push_back({n, 1});
-    cloudv.push_back({n, 2});
-    cloudv.push_back({n-1, 1});
-    cloudv.push_back({n-1, 2});
     
     for(int i = 0; i < m; i++) {
-        move(d[i]-1, s[i]);
+        int d, s;
+        cin >> d >> s;
+        
+        move(d-1, s);
         rain();
-        copy();
-        newcloud();
+        add();
+        makecloud();
     }
     
     int res = 0;
@@ -125,5 +119,5 @@ int main() {
         }
     }
     
-    cout << res << endl;
+    cout << res;
 }
