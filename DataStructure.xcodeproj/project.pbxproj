@@ -53,6 +53,7 @@
 		DE529AD72B7253D50050413C /* 9465.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = 9465.cpp; sourceTree = "<group>"; };
 		DE529AD92B7277BC0050413C /* 11057.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = 11057.cpp; sourceTree = "<group>"; };
 		DE56F4BE2AB80AC5000E5A5E /* 3184.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = 3184.cpp; sourceTree = "<group>"; };
+		DE5A2CD42B7E33F30082431B /* 1707.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = 1707.cpp; sourceTree = "<group>"; };
 		DE5B492128A105BD00BBEDF0 /* 11725.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = 11725.cpp; sourceTree = "<group>"; };
 		DE5BAF702AEBA62D0005C646 /* 1149.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = 1149.cpp; sourceTree = "<group>"; };
 		DE6448E62B49900200E7FCDF /* 2178-1.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = "2178-1.cpp"; sourceTree = "<group>"; };
@@ -268,6 +269,7 @@
 				DE80A5CA2B7A430B006F6CCD /* 6198.cpp */,
 				DEDB87502B7B6DDD0058A0A5 /* 1931.cpp */,
 				DEB16F792B7CE0D50061341A /* 2512.cpp */,
+				DE5A2CD42B7E33F30082431B /* 1707.cpp */,
 			);
 			path = DataStructure;
 			sourceTree = "<group>";
