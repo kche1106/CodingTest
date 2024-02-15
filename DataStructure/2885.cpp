@@ -12,22 +12,23 @@ int main() {
     int k;
     cin >> k;
     
-    int size = 1;
-    while(size < k) {
-        size *= 2;
+    int choco = 1;
+    while (true) {
+        if(k <= choco) break;
+        choco *= 2;
     }
     
-    cout << size << " ";
+    cout << choco << " ";
     
     int cnt = 0;
-    while(size > 0) {
-        if(k % size == 0) {
-            cout << cnt << endl;
+    while (true) {
+        if(k % choco == 0) {
+            cout << cnt;
             break;
         }
         else {
-            size /= 2;
             cnt++;
+            choco /= 2;
         }
     }
 }
