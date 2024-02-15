@@ -6,8 +6,9 @@
 //
 
 #include <iostream>
-#include <algorithm>
 using namespace std;
+
+int dp[1001];
 
 int main() {
     int n;
@@ -16,22 +17,13 @@ int main() {
     int a[1001];
     for(int i = 0; i < n; i++) {
         cin >> a[i];
-    }
-    
-    int dp[1001];
-    for(int i = 0; i < n; i++) {
         dp[i] = a[i];
     }
-
-    for(int i = 0; i < n; i++) {
-        for(int j = 0; j < i; j++) {
-            if(a[i] > a[j]) {
-                dp[i] = max(dp[i], dp[j] + a[i]);
-            }
+    
+    for(int i = 1; i < n; i++) {
+        for(int j = i-1; j >= 0; j--) {
+            if(a[i] > a[j]) dp[i] = max(dp[i], dp[j] + a[i]);
         }
-    }
-    for(int i = 0; i < n; i++) {
-        cout << dp[i] << " ";
     }
     
     int ans = 0;
@@ -39,5 +31,5 @@ int main() {
         if(ans < dp[i]) ans = dp[i];
     }
     
-    cout << ans << endl;
+    cout << ans;
 }
