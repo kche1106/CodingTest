@@ -7,93 +7,99 @@
 
 #include <iostream>
 #include <queue>
+#include <cstring>
 using namespace std;
 
 int w, h;
 int dx[] = {-1, 1, 0, 0};
 int dy[] = {0, 0, -1, 1};
 char map[1001][1001];
+int visited[1001][1001];
+int dist[1001][1001];
 queue<pair<int, int>> sang;
 queue<pair<int, int>> fire;
+int res;
 
-void moveFire() {
-    int cnt = fire.size();
-    for(int j = 0; j < cnt; j++) {
-        int fx = fire.front().first;
-        int fy = fire.front().second;
+void movefire() {
+    int size = fire.size();
+    while(size--) {
+        int x = fire.front().first;
+        int y = fire.front().second;
         fire.pop();
         
         for(int i = 0; i < 4; i++) {
-            int fnx = fx + dx[i];
-            int fny = fy + dy[i];
+            int nx = x + dx[i];
+            int ny = y + dy[i];
+
+            if(nx < 0 || ny < 0 || nx >= h || ny >= w) continue;
             
-            //불 퍼져나감
-            if(fnx >= 0 && fny >= 0 && fnx < h && fny < w) {
-                if(map[fnx][fny] == '.') {  //상근이가 지나온 곳은 갈 필요 없음
-                    map[fnx][fny] = '*';
-                    fire.push({fnx, fny});
-                }
+            if(map[nx][ny] == '.' || map[nx][ny] == '@') {
+                map[nx][ny] = '*';
+                fire.push({nx, ny});
             }
         }
     }
 }
 
-int moveSang() {
-    int res = 0;
-    while(!sang.empty()) {
-        res++;
-        moveFire();
+void movesang() {
+    int size = sang.size();
+    while(size--) {
+        int x = sang.front().first;
+        int y = sang.front().second;
+        sang.pop();
         
-        int cnt = sang.size();
-        for(int j = 0; j < cnt; j++) {
-            int sx = sang.front().first;
-            int sy = sang.front().second;
-            sang.pop();
+        for(int i = 0; i < 4; i++) {
+            int nx = x + dx[i];
+            int ny = y + dy[i];
             
-            for(int i = 0; i < 4; i++) {
-                int snx = sx + dx[i];
-                int sny = sy + dy[i];
-                
-                //상근이 이동
-                if(snx < 0 || sny < 0 || snx >= h || sny >= w) {
-                    return res;
-                }
-
-                if(map[snx][sny] == '.') {
-                    sang.push({snx, sny});
-                    map[snx][sny] = '@';
-                }
+            if(nx < 0 || ny < 0 || nx >= h || ny >= w)
+                res = dist[x][y] + 1;
+            
+            if(map[nx][ny] == '*' || map[nx][ny] == '#') continue;
+            
+            if(!visited[nx][ny]) {
+                visited[nx][ny] = 1;
+                sang.push({nx, ny});
+                dist[nx][ny] = dist[x][y] + 1;
             }
         }
     }
-    return -1;
 }
 
 void reset() {
+    memset(map, 0, sizeof(map));
     while(!sang.empty()) sang.pop();
     while(!fire.empty()) fire.pop();
+    memset(visited, 0, sizeof(visited));
+    memset(dist, 0, sizeof(dist));
+    res = 0;
 }
 
 int main() {
-    int tc;
-    cin >> tc;
+    int t;
+    cin >> t;
     
-    while(tc--) {
+    while(t--) {
         cin >> w >> h;
         
         for(int i = 0; i < h; i++) {
             for(int j = 0; j < w; j++) {
                 cin >> map[i][j];
                 if(map[i][j] == '@') sang.push({i, j});
-                if(map[i][j] == '*') fire.push({i, j});
+                else if(map[i][j] == '*') fire.push({i, j});
             }
         }
         
-        int ans = moveSang();
-        reset();
+        while(!sang.empty()) {
+            movefire();
+            movesang();
+            
+            if(res > 0) break;
+        }
         
-        if(ans == - 1) cout << "IMPOSSIBLE" << '\n';
-        else cout << ans << '\n';
-    
+        if(res > 0) cout << res << endl;
+        else cout << "IMPOSSIBLE" << endl;
+        
+        reset();
     }
 }
