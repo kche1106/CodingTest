@@ -9,9 +9,9 @@
 using namespace std;
 
 int a[100001];
+int dp[100001];
 
 int main() {
-    
     ios_base::sync_with_stdio(false);
     cin.tie(NULL);
     
@@ -20,13 +20,13 @@ int main() {
     
     for(int i = 1; i <= n; i++) {
         cin >> a[i];
-        a[i] += a[i-1];
+        dp[i] = dp[i-1] + a[i];
     }
     
     while(m--) {
         int i, j;
         cin >> i >> j;
         
-        cout << a[j] - a[i-1] << '\n';
+        cout << dp[j] - dp[i-1] << '\n';
     }
 }
