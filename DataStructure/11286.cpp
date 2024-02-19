@@ -10,6 +10,8 @@
 #include <cmath>
 using namespace std;
 
+//https://my-codinglog.tistory.com/21
+
 struct comp {
     bool operator() (int a, int b) {
         if(abs(a) < abs(b)) return false;
