@@ -8,70 +8,84 @@
 #include <iostream>
 #include <vector>
 #include <queue>
+#include <cstring>
 using namespace std;
 
-int n, m;
-vector<int> big[100];
-vector<int> small[100];
 int visited[100];
-int cnt;
-int res;
-
-void DFS1(int x) {
-    
-    cnt++;
-
-    for(int i = 0; i < big[x].size(); i++) {
-        if(visited[big[x][i]] == 0) {
-            visited[big[x][i]] = 1;
-            DFS1(big[x][i]);
-        }
-    }
-}
-
-void DFS2(int x) {
-    
-    cnt++;
-    
-    for(int i = 0; i < small[x].size(); i++) {
-        if(visited[small[x][i]] == 0) {
-            visited[small[x][i]] = 1;
-            DFS2(small[x][i]);
-        }
-    }
-}
 
 int main() {
+    int n, m;
     cin >> n >> m;
     
+    int mid = (n + 1) / 2;
+    
+    vector<int> heavy[100];
+    vector<int> light[100];
     for(int i = 0; i < m; i++) {
         int a, b;
         cin >> a >> b;
-        big[a].push_back(b);
-        small[b].push_back(a);
-    }
-        
-    for(int i = 1; i <= n; i++) {
-        cnt = 0;
-        for(int j = 1; j <= n; j++) {
-            visited[j] = 0;
-        }
-        visited[i] = 1;
-        
-        DFS1(i);
-        if(cnt > (n+1)/2) res++;
+        heavy[a].push_back(b);
+        light[b].push_back(a);
     }
     
+    int res = 0;
     for(int i = 1; i <= n; i++) {
-        cnt = 0;
-        for(int j = 1; j <= n; j++) {
-            visited[j] = 0;
-        }
+        queue<int> q;
+        q.push(i);
         visited[i] = 1;
         
-        DFS2(i);
-        if(cnt > (n+1)/2) res++;
+        int cnt = 0;
+        while(!q.empty()) {
+            int x = q.front();
+            q.pop();
+            
+            for(int j = 0; j < heavy[x].size(); j++) {
+                int nx = heavy[x][j];
+                
+                if(!visited[nx]) {
+                    cnt++;
+                    visited[nx] = 1;
+                    q.push(nx);
+                }
+            }
+        }
+        
+        memset(visited, 0, sizeof(visited));
+        if(cnt >= mid) res++;
+    }
+    
+    
+    for(int i = 1; i <= n; i++) {
+        queue<int> q;
+        q.push(i);
+        visited[i] = 1;
+        
+        int cnt = 0;
+        while(!q.empty()) {
+            int x = q.front();
+            q.pop();
+            
+            for(int j = 0; j < light[x].size(); j++) {
+                int nx = light[x][j];
+                if(!visited[nx]) {
+                    cnt++;
+                    visited[nx] = 1;
+                    q.push(nx);
+                }
+            }
+        }
+        
+        memset(visited, 0, sizeof(visited));
+        if(cnt >= mid) res++;
     }
     
     cout << res;
 }
+
+/*
+ 5 4
+ 2 1
+ 4 3
+ 5 1
+ 4 2
+ */
