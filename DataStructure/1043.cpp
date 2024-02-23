@@ -2,66 +2,71 @@
 //  1043.cpp
 //  DataStructure
 //
-//  Created by 김채은 on 2024/02/12.
+//  Created by ��ä�� on 2024/02/12.
 //
 
 #include <iostream>
 #include <vector>
 #include <queue>
-#include <algorithm>
 using namespace std;
 
-//union & find로 풀어보기
-
-int visited[51];
-
 int main() {
-    int n, m;  //사람 수, 파티 수
-    cin >> n >> m;
-    
-    int num;
-    cin >> num;  //진실을 아는 사람 수
-    
-    queue<int> truth;
-    for(int i = 0; i < num; i++) {
-        int t;  //진실을 아는 사람 번호
-        cin >> t;
-        truth.push(t);
-        visited[t] = 1;
-    }
-    
-    vector<int> party[51];
-    vector<int> human[51];
-    for(int i = 0; i < m; i++) {  //m개의 파티
-        int n;  //각 파티 인원
-        cin >> n;
-        for(int j = 0; j < n; j++) {
-            int p;
-            cin >> p;
-            party[i].push_back(p);
-            human[p].push_back(i);
-        }
-    }
-    
-    vector<int> res;
-    while(!truth.empty()) {
-        int x = truth.front();
-        truth.pop();
-        
-        for(int i = 0; i < human[x].size(); i++) {
-            int id = human[x][i];
-            res.push_back(id);
-            for(int j = 0; j < party[id].size(); j++) {
-                if(visited[party[id][j]] == 0) {
-                    visited[party[id][j]] = 1;
-                    truth.push(party[id][j]);
-                }
-            }
-        }
-    }
-    
-    sort(res.begin(), res.end());
-    res.erase(unique(res.begin(),res.end()),res.end());
-    
-    cout << m - res.size();
+	int n, m;
+	cin >> n >> m;  //���, ��Ƽ
+
+	int t_num;
+	cin >> t_num;
+
+	vector<int> truth;
+	for (int i = 0; i < t_num; i++) {
+		int a;
+		cin >> a;
+		truth.push_back(a);
+	}
+
+	vector<int> party[50];
+	vector<int> people[50];
+	for (int i = 0; i < m; i++) {
+		int num;
+		cin >> num;
+
+		for (int j = 0; j < num; j++) {
+			int x;
+			cin >> x;
+			party[i].push_back(x);
+			people[x].push_back(i);
+		}
+	}
+
+	int res[50];
+	for (int i = 0; i < m; i++) {
+		res[i] = 1;
+	}
+	int visited[50];
+	memset(visited, 0, sizeof(visited));
+	for (int i = 0; i < truth.size(); i++) {
+		int t = truth[i];
+		visited[t] = 1;
+		for (int j = 0; j < people[t].size(); j++) {
+			int p = people[t][j];  //party
+			if (res[p] == 0) continue;
+			res[p] = 0;
+
+			for (int k = 0; k < party[p].size(); k++) {
+				int m = party[p][k];
+				if (visited[m]) continue;
+				truth.push_back(m);
+				visited[m] = 1;
+			}
+		}
+	}
+
+	int cnt = 0;
+	for (int i = 0; i < m; i++) {
+		/*cout << res[i] << " ";*/
+		if (res[i] == 1) cnt++;
+	}
+
+	cout << cnt;
+
 }
