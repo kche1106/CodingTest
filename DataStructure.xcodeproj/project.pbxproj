@@ -141,6 +141,8 @@
 		DEFE268F2B8AFAB4000278C9 /* 5430.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = 5430.cpp; sourceTree = "<group>"; };
 		DEFE26912B8B0F0B000278C9 /* 9935.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = 9935.cpp; sourceTree = "<group>"; };
 		DEFE26932B8B2074000278C9 /* 12904.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = 12904.cpp; sourceTree = "<group>"; };
+		DEFE26952B8B4B2C000278C9 /* 5582.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = 5582.cpp; sourceTree = "<group>"; };
+		DEFE26972B8B6A58000278C9 /* 2493.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = 2493.cpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -294,6 +296,8 @@
 				DEFE268F2B8AFAB4000278C9 /* 5430.cpp */,
 				DEFE26912B8B0F0B000278C9 /* 9935.cpp */,
 				DEFE26932B8B2074000278C9 /* 12904.cpp */,
+				DEFE26952B8B4B2C000278C9 /* 5582.cpp */,
+				DEFE26972B8B6A58000278C9 /* 2493.cpp */,
 			);
 			path = DataStructure;
 			sourceTree = "<group>";
