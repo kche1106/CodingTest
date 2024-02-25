@@ -50,7 +50,6 @@ void dfs(int idx) {
     int num = map[x][y];  //cctv 번호
     
     int temp[9][9];
-
     for(int dir = 0; dir < 4; dir++) {
         for(int i = 0; i < n; i++) {
             for(int j = 0; j < m; j++) {
