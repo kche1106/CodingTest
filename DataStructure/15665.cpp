@@ -33,6 +33,7 @@ void dfs(int cnt) {
 int main() {
     cin >> n >> m;
     for(int i = 0; i < n; i++) cin >> arr[i];
+    
     sort(arr, arr+n);
     
     dfs(0);
