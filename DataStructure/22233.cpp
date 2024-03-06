@@ -41,8 +41,7 @@ int main() {
 
 	for (int i = 0; i < m; i++) {
 		string s;
-		cin >> s;
-		
+        cin >> s;
 		split(s, ',');
 
 		cout << memo.size() << "\n";
