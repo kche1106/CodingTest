@@ -63,7 +63,6 @@ int main() {
            room[idx].player.push_back(player[i]);
        }
        else {
-//           cout << player[i].nickname << endl;
            room.push_back(Room(player[i].level, player[i]));
        }
    }
