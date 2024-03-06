@@ -61,5 +61,4 @@ int main() {
         cout << st_tmp.top();
         st_tmp.pop();
     }
-    
 }
