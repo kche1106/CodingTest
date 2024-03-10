@@ -16,7 +16,7 @@ int main() {
         int n;
         cin >> n;
         
-        long long dp[n+1];
+        long long dp[1000010];
         dp[0] = 0;
         dp[1] = 1;
         dp[2] = 2;
