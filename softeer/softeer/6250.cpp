@@ -36,17 +36,16 @@ int main() {
             int s = score[i].top().first;
             int idx = score[i].top().second;
             score[i].pop();
-//            cout << "s = " << s << " " << " idx = " << idx << " total = " << total[idx] << "\n";
             
             if(pre != s) {
                 rank[i][idx] = size;
                 pre_rank = rank[i][idx];
             }
-            else if(pre == s) {
+            else {
                 rank[i][idx] = pre_rank;
             }
-            size++;
             pre = s;
+            size++;
         }
     }
     
@@ -68,11 +67,11 @@ int main() {
             total_rank[idx] = size;
             pre_rank = total_rank[idx];
         }
-        else if(pre == s) {
+        else {
             total_rank[idx] = pre_rank;
         }
-        size++;
         pre = s;
+        size++;
     }
     
     for(int i = 0; i < 3; i++) {
@@ -82,7 +81,7 @@ int main() {
         cout << "\n";
     }
     
-    for(int i = 0; i < 3; i++) {
+    for(int i = 0; i < n; i++) {
         cout << total_rank[i] << " ";
     }
 }
