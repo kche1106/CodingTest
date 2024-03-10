@@ -6,6 +6,10 @@
 	objectVersion = 56;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		DE4D2B8D2B9CC7100095D6A8 /* 6248.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DE4D2B8C2B9CC7100095D6A8 /* 6248.cpp */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXCopyFilesBuildPhase section */
 		DEB1191E2B9B2694005DEC58 /* CopyFiles */ = {
 			isa = PBXCopyFilesBuildPhase;
@@ -19,6 +23,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		DE4D2B8C2B9CC7100095D6A8 /* 6248.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = 6248.cpp; sourceTree = "<group>"; };
 		DEB119202B9B2694005DEC58 /* softeer */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = softeer; sourceTree = BUILT_PRODUCTS_DIR; };
 		DEB119232B9B2694005DEC58 /* 6288.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = 6288.cpp; sourceTree = "<group>"; };
 		DEB1192A2B9B41B2005DEC58 /* 6283.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = 6283.cpp; sourceTree = "<group>"; };
@@ -60,6 +65,7 @@
 				DEB1192A2B9B41B2005DEC58 /* 6283.cpp */,
 				DEB1192C2B9B496B005DEC58 /* 6294.cpp */,
 				DEB1192E2B9B4BB3005DEC58 /* 6250.cpp */,
+				DE4D2B8C2B9CC7100095D6A8 /* 6248.cpp */,
 			);
 			path = softeer;
 			sourceTree = "<group>";
@@ -121,6 +127,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DE4D2B8D2B9CC7100095D6A8 /* 6248.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
