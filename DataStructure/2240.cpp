@@ -6,86 +6,46 @@
 //
 
 #include <iostream>
-#include <vector>
-#include <queue>
-#include <cstring>
 using namespace std;
 
-int t, w;
-vector<int> order;
-vector<int> change;
-vector<int> visited;
-vector<int> vw;
-int ans;
-int res;
-
-void count() {
-    int idx = 0;
-    int tree = 1;
-    for (int i = 0; i < order.size(); i++) {
-//        cout << "i = " << i << " ";
-        if (i == vw[idx]) {
-//            cout << "if" << " ";
-            res += 1;
-            tree = order[i];
-            idx += 1;
-        }
-        else {
-//            cout << "else" << " ";
-            if(tree == order[i]) res += 1;
-        }
-//        cout << "tree = " << tree << endl;
-    }
-//    cout << "res = " << res << endl;
-}
-
-void switching() {
-    if (vw.size() == w) {
-        
-//        for (auto a : vw) cout << a << " ";
-//        cout << endl;
-        
-        count();
-//        vw.clear();
-        
-        //        cout << res << " ";
-        if(ans < res) ans = res;
-        res = 0;
-        
-        return;
-    }
-
-    for (int i = 0; i < change.size(); i++) {
-        if (!visited[i]) {
-            visited[i] = 1;
-            vw.push_back(change[i]);
-            switching();
-            vw.erase(vw.end() - 1);
-            visited[i] = 0;
-        }
-    }
-}
-
 int main() {
+    int t, w;
     cin >> t >> w;
     
-    int pre = 1;
+    int list[1001];
     for (int i = 0; i < t; i++) {
-        int num;
-        cin >> num;
-        order.push_back(num);
-        if (pre != num) {
-            change.push_back(i);
-            visited.push_back(0);
-        }
-        pre = num;
+        cin >> list[i];
     }
     
+    int dp[31][2][1001];
+    for(int i = 0; i <= w; i++) {
+        for(int j = 0; j < t; j++) {
+            
+            if(i == 0) {  //시작일 땐 1번 나무에
+                if(list[j] == 1)
+                    dp[i][0][j] = dp[i][0][j-1] + 1;
+                else dp[i][0][j] = dp[i][0][j-1];
+            }
+            
+            else {
+                if(list[j] == 1) {
+                    dp[i][0][j] = max(dp[i][0][j-1] + 1, dp[i-1][1][j-1] + 1);
+                    dp[i][1][j] = max(dp[i][1][j-1], dp[i-1][0][j-1]);
+                }
+                else if(list[j] == 2) {
+                    dp[i][0][j] = max(dp[i][0][j-1], dp[i-1][1][j-1]);
+                    dp[i][1][j] = max(dp[i][1][j-1] + 1, dp[i-1][0][j-1] + 1);
+                }
+            }
+        }
+    }
     
-//    for (auto a : change) cout << a << " ";
-//    cout << endl;
-    
-    switching();
+    int ans = 0;
+    for(int i = 0; i < 2; i++) {
+        for(int j = 0; j <= w; j++) {
+            ans = max(ans, dp[j][i][t-1]);
+        }
+    }
     
     cout << ans;
 }
