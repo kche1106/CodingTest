@@ -6,7 +6,10 @@
 //
 
 #include <iostream>
+#include <cstring>
 using namespace std;
+
+int dp[10001];
 
 int main() {
     int t;
@@ -21,18 +24,17 @@ int main() {
             cin >> coin[i];
         }
         
-        int m;
-        cin >> m;
+        int money;
+        cin >> money;
         
-        int dp[10001] = {0, };
+        memset(dp, 0, sizeof(dp));
         dp[0] = 1;
-        
         for(int i = 0; i < n; i++) {
-            for(int j = coin[i]; j <= m; j++) {
+            for(int j = coin[i]; j <= money; j++) {
                 dp[j] += dp[j - coin[i]];
             }
         }
         
-        cout << dp[m] << '\n';
+        cout << dp[money] << "\n";
     }
 }
