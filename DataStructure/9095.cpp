@@ -9,19 +9,21 @@
 using namespace std;
 
 int main() {
-    int t, n;
-    int dp[11];
-    
+    int t;
     cin >> t;
-    
-    for(int i = 0; i < t; i++) {
+
+    while(t--) {
+        int n;
         cin >> n;
-        
-        dp[1] = 1; dp[2] = 2; dp[3] = 4;
-        for(int j = 4; j <= n; j++) {
-            dp[j] = dp[j-1] + dp[j-2] + dp[j-3];
+
+        int dp[11];
+        dp[1] = 1;
+        dp[2] = 2;
+        dp[3] = 4;
+        for(int i = 4; i <= n; i++) {
+            dp[i] = dp[i-1] + dp[i-2] + dp[i-3];
         }
-        
-        cout << dp[n] << endl;
+
+        cout << dp[n] << "\n";
     }
 }
