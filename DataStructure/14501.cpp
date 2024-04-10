@@ -6,33 +6,30 @@
 //
 
 #include <iostream>
+#include <algorithm>
+#include <vector>
 using namespace std;
-
-int t[16], p[16];
-int dp[16];
-
-int max(int x, int y) {
-    return x > y ? x : y;
-}
 
 int main() {
     int n;
     cin >> n;
-    
+
+    int t[16];
+    int p[16];
     for(int i = 1; i <= n; i++) {
         cin >> t[i] >> p[i];
     }
-    
 
-    for(int i = n; i > 0; i--) {
-        int next = i + t[i];
-        if(next > n + 1) {
-            dp[i] = dp[i+1];
-        }
+    vector<int> dp(n+2);
+    if(n + t[n] > n+1) dp[n] = 0;
+    else dp[n] = p[n];
+
+    for(int i = n-1; i >= 1; i--) {
+        if(i + t[i] > n+1) dp[i] = dp[i+1];
         else {
-            dp[i] = max(dp[i+1], p[i] + dp[next]);
+            dp[i] = max(p[i] + dp[i+t[i]], dp[i+1]);
         }
     }
-    
-    cout << dp[1] << endl;
+
+    cout << dp[1];
 }
