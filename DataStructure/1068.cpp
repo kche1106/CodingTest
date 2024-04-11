@@ -9,49 +9,57 @@
 #include <vector>
 using namespace std;
 
+int n;
 vector<int> v[51];
-int visited[51];
-int rm;
+// int visited[51];
+int r;
 int res;
 
-void DFS(int node) {
-    if(v[node].size() == 1 && v[node][0] == rm) {
+void dfs(int node)
+{
+
+    if (v[node].size() == 0)
+    {
         res++;
         return;
     }
-    
-    if(v[node].size() == 0) {
+
+    if (v[node].size() == 1 && v[node][0] == r)
+    {
         res++;
         return;
     }
-    
-    for(int i = 0; i < v[node].size(); i++) {
-        int next = v[node][i];
-        if(visited[next] == 0 && next != rm) {
-            visited[next] = 1;
-            DFS(next);
+
+    for (int i = 0; i < v[node].size(); i++)
+    {
+        if (v[node][i] != r)
+        {
+            // visited[v[node][i]] = 1;
+            dfs(v[node][i]);
         }
     }
 }
 
-int main() {
-    int n;
+int main()
+{
     cin >> n;
-    
+
     int root = 0;
-    for(int i = 0; i < n; i++) {
+    for (int i = 0; i < n; i++)
+    {
         int a;
         cin >> a;
-        if(a == -1) root = i;
-        else v[a].push_back(i);
+
+        if (a == -1)
+            root = i;
+        else
+            v[a].push_back(i);
     }
-    
-    cin >> rm;
-    
-    if(rm != root) {
-        visited[root] = 1;
-        DFS(root);
-    }
-    
+
+    cin >> r;
+
+    if (r != root)
+        dfs(root);
+
     cout << res;
 }
