@@ -25,21 +25,21 @@ int main() {
     int n;
     cin >> n;
     
-    priority_queue<int, vector<int>, comp> q;
+    priority_queue<int, vector<int>, comp> pq;
     
     for(int i = 0; i < n; i++) {
         int x;
         cin >> x;
         
         if(x == 0) {
-            if(q.empty()) cout << "0\n";
+            if(pq.empty()) cout << "0\n";
             else {
-                cout << q.top() << '\n';
-                q.pop();
+                cout << pq.top() << '\n';
+                pq.pop();
             }
         }
         else {
-            q.push(x);
+            pq.push(x);
         }
     }
 }
