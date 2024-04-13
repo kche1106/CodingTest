@@ -7,6 +7,7 @@
 
 #include <iostream>
 #include <string>
+#include <cstring>
 using namespace std;
 
 int n;
@@ -15,33 +16,44 @@ int dx[] = {-1,0,1,0};
 int dy[] = {0,-1,0,1};
 int isVisited[101][101];
 
-void DFS1(int x, int y) {
-    isVisited[x][y] = 1;
-    
-    for(int i = 0; i < 4; i++) {
-        int rx = x + dx[i];
-        int ry = y + dy[i];
-        
-        if(rx < 0 || rx >= n || ry < 0 || ry >= n) continue;
-        if(isVisited[rx][ry] || colors[x][y] != colors[rx][ry]) continue;
-        DFS1(rx, ry);
+void dfs1(int x, int y) {
+    char color = colors[x][y];
+
+    for (int i = 0; i < 4; i++) {
+        int nx = x + dx[i];
+        int ny = y + dy[i];
+
+        if(nx < 0 || ny < 0 || nx >= n || ny >= n) continue;
+        if(isVisited[nx][ny]) continue;
+
+        if(color == colors[nx][ny]) {
+            isVisited[nx][ny] = 1;
+            dfs1(nx, ny);
+        }
     }
 }
 
-void DFS2(int x, int y) {
-    isVisited[x][y] = 1;
-    
-    for(int i = 0; i < 4; i++) {
-        int rx = x + dx[i];
-        int ry = y + dy[i];
-        
-        if(rx < 0 || rx >= n || ry < 0 || ry >= n) continue;
-        if(isVisited[rx][ry]) continue;
-            
-        if((colors[x][y] == 'G' && colors[rx][ry] == 'R') ||
-           (colors[x][y] == 'R' && colors[rx][ry] == 'G')) DFS2(rx, ry);
-        if(colors[x][y] == colors[rx][ry]) DFS2(rx, ry);
-        
+void dfs2(int x, int y)
+{
+    char color = colors[x][y];
+
+    for (int i = 0; i < 4; i++)
+    {
+        int nx = x + dx[i];
+        int ny = y + dy[i];
+
+        if (nx < 0 || ny < 0 || nx >= n || ny >= n)
+            continue;
+        if (isVisited[nx][ny])
+            continue;
+
+        if (color == colors[nx][ny] || 
+        (color == 'R' && colors[nx][ny] == 'G') ||
+        (color == 'G' && colors[nx][ny] == 'R'))
+        {
+            isVisited[nx][ny] = 1;
+            dfs2(nx, ny);
+        }
     }
 }
 
@@ -56,32 +68,31 @@ int main() {
     }
     
     int cnt1 = 0;
-    for(int i = 0; i < n; i++) {
-        for(int j = 0; j < n; j++) {
-            if(!isVisited[i][j]) {
+    for (int i = 0; i < n; i++) {
+        for (int j = 0; j < n; j++) {
+            if (!isVisited[i][j]) {
                 isVisited[i][j] = 1;
+                dfs1(i, j);
                 cnt1++;
-                DFS1(i, j);
             }
         }
     }
-    
-    for(int i = 0; i < n; i++) {
-        for(int j = 0; j < n; j++) {
-            isVisited[i][j] = 0;
-        }
-    }
-    
+
+    memset(isVisited, 0, sizeof(isVisited));
+
     int cnt2 = 0;
-    for(int i = 0; i < n; i++) {
-        for(int j = 0; j < n; j++) {
-            if(!isVisited[i][j]) {
+    for (int i = 0; i < n; i++)
+    {
+        for (int j = 0; j < n; j++)
+        {
+            if (!isVisited[i][j])
+            {
                 isVisited[i][j] = 1;
+                dfs2(i, j);
                 cnt2++;
-                DFS2(i, j);
             }
         }
     }
-    
+
     cout << cnt1 << " " << cnt2 << endl;
 }
