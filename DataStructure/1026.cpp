@@ -2,7 +2,7 @@
 //  1026.cpp
 //  DataStructure
 //
-//  Created by ±èÃ¤Àº on 2024/02/29.
+//  Created by ï¿½ï¿½Ã¤ï¿½ï¿½ on 2024/02/29.
 //
 
 #include <iostream>
@@ -28,11 +28,11 @@ int main() {
 		cin >> x;
 		b.push_back(x);
 	}
-	sort(b.begin(), b.end());
+	sort(b.begin(), b.end(), greater<int>());
 
 	int res = 0;
 	for (int i = 0; i < a.size(); i++) {
-		res += a[i] * b[a.size() - 1 - i];
+		res += a[i] * b[i];
 	}
 
 	cout << res;
