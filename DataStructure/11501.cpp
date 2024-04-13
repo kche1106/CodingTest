@@ -23,10 +23,10 @@ int main() {
             cin >> x;
             v.push_back(x);
         }
-        
-        int max = v.back();
+
+        int max = -1;
         long long res = 0;
-        for(int i = v.size() - 2; i >= 0; i--) {
+        for(int i = n-1; i >= 0; i--) {
             if(max < v[i]) max = v[i];
             else res += max - v[i];
         }
