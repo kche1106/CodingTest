@@ -19,7 +19,9 @@ int main() {
     }
     
     int dy[n][3];
-    dy[0][0] = house[0][0]; dy[0][1] = house[0][1]; dy[0][2] = house[0][2];
+    dy[0][0] = house[0][0]; 
+    dy[0][1] = house[0][1]; 
+    dy[0][2] = house[0][2];
     for(int i = 1; i < n; i++) {
         dy[i][0] = house[i][0] + min(dy[i-1][1], dy[i-1][2]);
         dy[i][1] = house[i][1] + min(dy[i-1][0], dy[i-1][2]);
