@@ -14,11 +14,10 @@ using namespace std;
 
 struct comp {
     bool operator() (int a, int b) {
-        if(abs(a) < abs(b)) return false;
-        else if(abs(a) == abs(b)) {
+        if(abs(a) == abs(b)) {
             return a > b;
         }
-        else return true;
+        else return abs(a) > abs(b);
     }
 };
 
