@@ -9,34 +9,39 @@
 #include <vector>
 using namespace std;
 
-int N, M;
-vector<int> vec[1001];
-int isVisit[1001];
+int n, m;
+vector<int> arr[1001];
+int visited[1001];
 
-void DFS(int x) {
-    isVisit[x] = 1;
-    for(int i = 0; i < vec[x].size(); i++) {
-        if(!isVisit[vec[x][i]]) DFS(vec[x][i]);
+void dfs(int l) { 
+    for (int i = 0; i < arr[l].size(); i++) {
+        int x = arr[l][i];
+        if(visited[x] == 0) {
+            visited[x] = 1;
+            dfs(x);
+        }
     }
 }
 
 int main() {
-    cin >> N >> M;
-    
-    int u, v;
-    for(int i = 1; i <= M; i++) {
+    cin >> n >> m;
+
+    for (int i = 0; i < m; i++) {
+        int u, v;
         cin >> u >> v;
-        vec[u].push_back(v);
-        vec[v].push_back(u);
+
+        arr[u].push_back(v);
+        arr[v].push_back(u);
     }
-    
+
     int cnt = 0;
-    for(int i = 1; i <= N; i++) {
-        if(!isVisit[i]){
+    for (int i = 1; i <= n; i++) {
+        if(visited[i] == 0) {
+            visited[i] = 1;
+            dfs(i);
             cnt++;
-            DFS(i);
         }
     }
-    
-    cout << cnt << endl;
+
+    cout << cnt;
 }
